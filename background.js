@@ -17,6 +17,8 @@ const MUTE_CONTEXTMENU_ITEM_TITLE = "Mute";
 const UNMUTE_CONTEXTMENU_ITEM_ID = "Unmute_Id";
 const UNMUTE_CONTEXTMENU_ITEM_TITLE = "Unmute";
 
+const DUPLICATE_CONTEXTMENU_ITEM_ID = "Duplicate_Id";
+const DUPLICATE_CONTEXTMENU_ITEM_TITLE = "Duplicate";
 
 chrome.contextMenus.create({
   id:CLOSE_CONTEXTMENU_ITEM_ID,
@@ -42,6 +44,11 @@ function buildNestedContextMenuItems(){
     title: UNMUTE_CONTEXTMENU_ITEM_TITLE,
     type:"normal",
   });
+  chrome.contextMenus.create({
+    id: DUPLICATE_CONTEXTMENU_ITEM_ID,
+    title: DUPLICATE_CONTEXTMENU_ITEM_TITLE,
+    type:"normal",
+  });
 }
 
 function ContextMenuLinkActions(tab, currentTab, contextMenuItemId){
@@ -63,6 +70,9 @@ function ContextMenuLinkActions(tab, currentTab, contextMenuItemId){
           }
           if(contextMenuItemId === UNMUTE_CONTEXTMENU_ITEM_ID){
             chrome.tabs.update(tab.id,{muted: false});
+          }
+          if(contextMenuItemId === DUPLICATE_CONTEXTMENU_ITEM_ID){
+            chrome.tabs.duplicate(currentTab.id);
           }
         }
       });
