@@ -20,6 +20,13 @@ const UNMUTE_CONTEXTMENU_ITEM_TITLE = "Unmute";
 const DUPLICATE_CONTEXTMENU_ITEM_ID = "Duplicate_Id";
 const DUPLICATE_CONTEXTMENU_ITEM_TITLE = "Duplicate";
 
+const PIN_CONTEXTMENU_ITEM_ID = "Pin_Id";
+const PIN_CONTEXTMENU_ITEM_TITLE = "Pin";
+
+const UNPIN_CONTEXTMENU_ITEM_ID = "UnPin_Id";
+const UNPIN_CONTEXTMENU_ITEM_TITLE = "UnPin";
+
+
 chrome.contextMenus.create({
   id:CLOSE_CONTEXTMENU_ITEM_ID,
   title: CLOSE_CONTEXTMENU_ITEM_TITLE,
@@ -49,6 +56,16 @@ function buildNestedContextMenuItems(){
     title: DUPLICATE_CONTEXTMENU_ITEM_TITLE,
     type:"normal",
   });
+  chrome.contextMenus.create({
+    id: PIN_CONTEXTMENU_ITEM_ID,
+    title: PIN_CONTEXTMENU_ITEM_TITLE,
+    type:"normal",
+  });
+  chrome.contextMenus.create({
+    id: UNPIN_CONTEXTMENU_ITEM_ID,
+    title: UNPIN_CONTEXTMENU_ITEM_TITLE,
+    type:"normal",
+  });
 }
 
 function ContextMenuLinkActions(tab, currentTab, contextMenuItemId){
@@ -73,6 +90,12 @@ function ContextMenuLinkActions(tab, currentTab, contextMenuItemId){
           }
           if(contextMenuItemId === DUPLICATE_CONTEXTMENU_ITEM_ID){
             chrome.tabs.duplicate(currentTab.id);
+          }
+          if(contextMenuItemId === PIN_CONTEXTMENU_ITEM_ID){
+            chrome.tabs.update(tab.id,{pinned: true});
+          }
+          if(contextMenuItemId === UNPIN_CONTEXTMENU_ITEM_ID){
+            chrome.tabs.update(tab.id,{pinned: false});
           }
         }
       });
