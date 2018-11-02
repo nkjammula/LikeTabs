@@ -8,8 +8,11 @@ chrome.runtime.onInstalled.addListener(function() {
 const RELOAD_ALL_CONTEXTMENU_ITEM_ID = "ReloadAll_ID";
 const RELOAD_ALL_CONTEXTMENU_ITEM_TITLE = "Reload All";
 
-const CLOSE_CONTEXTMENU_ITEM_ID = "Close_ID";
-const CLOSE_CONTEXTMENU_ITEM_TITLE = "Close other tabs";
+const RELOAD_OTHER_CONTEXTMENU_ITEM_ID = "Reload_OTHER_ID";
+const RELOAD_OTHER_CONTEXTMENU_ITEM_TITLE = "Reload Other tabs";
+
+const CLOSE_OTHER_CONTEXTMENU_ITEM_ID = "Close_OTHER_ID";
+const CLOSE_OTHER_CONTEXTMENU_ITEM_TITLE = "Close other tabs";
 
 const CLOSE_ALL_CONTEXTMENU_ITEM_ID = "CloseAll_ID";
 const CLOSE_ALL_CONTEXTMENU_ITEM_TITLE = "Close All";
@@ -17,17 +20,16 @@ const CLOSE_ALL_CONTEXTMENU_ITEM_TITLE = "Close All";
 const MUTE_ALL_CONTEXTMENU_ITEM_ID = "MuteAll_Id";
 const MUTE_ALL_CONTEXTMENU_ITEM_TITLE = "Mute All";
 
+const MUTE_OTHER_CONTEXTMENU_ITEM_ID = "Mute_Other_Id";
+const MUTE_OTHER_CONTEXTMENU_ITEM_TITLE = "Mute other tabs";
+
 const UNMUTE_ALL_CONTEXTMENU_ITEM_ID = "UnmuteAll_Id";
 const UNMUTE_ALL_CONTEXTMENU_ITEM_TITLE = "Unmute All";
 
-const DUPLICATE_CONTEXTMENU_ITEM_ID = "Duplicate_Id";
-const DUPLICATE_CONTEXTMENU_ITEM_TITLE = "Duplicate";
+const UNMUTE_OTHER_CONTEXTMENU_ITEM_ID = "Unmute_Other_Id";
+const UNMUTE_OTHER_CONTEXTMENU_ITEM_TITLE = "Unmute other tabs";
 
-const PIN_CONTEXTMENU_ITEM_ID = "Pin_Id";
-const PIN_CONTEXTMENU_ITEM_TITLE = "Pin";
 
-const UNPIN_CONTEXTMENU_ITEM_ID = "UnPin_Id";
-const UNPIN_CONTEXTMENU_ITEM_TITLE = "UnPin";
 
 
 chrome.contextMenus.create({
@@ -40,8 +42,8 @@ chrome.contextMenus.create({
 
 function buildNestedContextMenuItems(){
   chrome.contextMenus.create({
-    id: CLOSE_CONTEXTMENU_ITEM_ID,
-    title: CLOSE_CONTEXTMENU_ITEM_TITLE,
+    id: CLOSE_OTHER_CONTEXTMENU_ITEM_ID,
+    title: CLOSE_OTHER_CONTEXTMENU_ITEM_TITLE,
     type:"normal",
   });
   chrome.contextMenus.create({
@@ -50,30 +52,34 @@ function buildNestedContextMenuItems(){
     type:"normal",
   });
   chrome.contextMenus.create({
+    id: RELOAD_OTHER_CONTEXTMENU_ITEM_ID,
+    title: RELOAD_OTHER_CONTEXTMENU_ITEM_TITLE,
+    type:"normal",
+  });
+  chrome.contextMenus.create({
     id: MUTE_ALL_CONTEXTMENU_ITEM_ID,
     title: MUTE_ALL_CONTEXTMENU_ITEM_TITLE,
     type:"normal",
   });
+
+  chrome.contextMenus.create({
+    id: MUTE_OTHER_CONTEXTMENU_ITEM_ID,
+    title: MUTE_OTHER_CONTEXTMENU_ITEM_TITLE,
+    type:"normal",
+  });
+
   chrome.contextMenus.create({
     id: UNMUTE_ALL_CONTEXTMENU_ITEM_ID,
     title: UNMUTE_ALL_CONTEXTMENU_ITEM_TITLE,
     type:"normal",
   });
-  // chrome.contextMenus.create({
-  //   id: DUPLICATE_CONTEXTMENU_ITEM_ID,
-  //   title: DUPLICATE_CONTEXTMENU_ITEM_TITLE,
-  //   type:"normal",
-  // });
-  // chrome.contextMenus.create({
-  //   id: PIN_CONTEXTMENU_ITEM_ID,
-  //   title: PIN_CONTEXTMENU_ITEM_TITLE,
-  //   type:"normal",
-  // });
-  // chrome.contextMenus.create({
-  //   id: UNPIN_CONTEXTMENU_ITEM_ID,
-  //   title: UNPIN_CONTEXTMENU_ITEM_TITLE,
-  //   type:"normal",
-  // });
+
+
+  chrome.contextMenus.create({
+    id: UNMUTE_OTHER_CONTEXTMENU_ITEM_ID,
+    title: UNMUTE_OTHER_CONTEXTMENU_ITEM_TITLE,
+    type:"normal",
+  });
 }
 
 function ContextMenuLinkActions(tab, currentTab, contextMenuItemId){
@@ -84,30 +90,48 @@ function ContextMenuLinkActions(tab, currentTab, contextMenuItemId){
         var currentTabUrl = new URL(currentTab.url);
         var currentTabHostName = currentTabUrl.hostname;
         if(url.hostname === currentTabHostName){
-          if(contextMenuItemId === CLOSE_ALL_CONTEXTMENU_ITEM_ID){
-            chrome.tabs.remove(tab.id);
+          switch(contextMenuItemId){
+
+            case CLOSE_ALL_CONTEXTMENU_ITEM_ID:
+                chrome.tabs.remove(tab.id);
+                break;
+
+            case CLOSE_OTHER_CONTEXTMENU_ITEM_ID:
+                 if(currentTab.id != tab.id ){
+                  chrome.tabs.remove(tab.id);
+                 }
+                 break;
+
+            case RELOAD_ALL_CONTEXTMENU_ITEM_ID:
+                chrome.tabs.reload(tab.id);
+                break;
+
+            case RELOAD_OTHER_CONTEXTMENU_ITEM_ID:
+                if(currentTab.id != tab.id ){
+                  chrome.tabs.reload(tab.id);
+                }
+                break;
+
+            case MUTE_ALL_CONTEXTMENU_ITEM_ID:
+                chrome.tabs.update(tab.id,{muted: true});
+                break;
+
+            case MUTE_OTHER_CONTEXTMENU_ITEM_ID:
+                if(currentTab.id != tab.id ){
+                  chrome.tabs.update(tab.id,{muted: true});
+                }
+                break;
+
+            case UNMUTE_ALL_CONTEXTMENU_ITEM_ID:
+                chrome.tabs.update(tab.id,{muted: false});
+                break;
+
+            case UNMUTE_OTHER_CONTEXTMENU_ITEM_ID:
+                if(currentTab.id != tab.id ){
+                  chrome.tabs.update(tab.id,{muted: false});
+                }
+                break;
           }
-          if(contextMenuItemId === RELOAD_ALL_CONTEXTMENU_ITEM_ID){
-            chrome.tabs.reload(tab.id);
-          }
-          if(contextMenuItemId === CLOSE_CONTEXTMENU_ITEM_ID && currentTab.id != tab.id ){
-            chrome.tabs.remove(tab.id);
-          }
-          if(contextMenuItemId === MUTE_ALL_CONTEXTMENU_ITEM_ID){
-            chrome.tabs.update(tab.id,{muted: true});
-          }
-          if(contextMenuItemId === UNMUTE_ALL_CONTEXTMENU_ITEM_ID){
-            chrome.tabs.update(tab.id,{muted: false});
-          }
-          // if(contextMenuItemId === DUPLICATE_CONTEXTMENU_ITEM_ID){
-          //   chrome.tabs.duplicate(currentTab.id);
-          // }
-          // if(contextMenuItemId === PIN_CONTEXTMENU_ITEM_ID){
-          //   chrome.tabs.update(tab.id,{pinned: true});
-          // }
-          // if(contextMenuItemId === UNPIN_CONTEXTMENU_ITEM_ID){
-          //   chrome.tabs.update(tab.id,{pinned: false});
-          // }
         }
       });
     });
