@@ -2,15 +2,55 @@
 <html>
   <head>
     <style>
-      button {
-        height: 30px;
-        width: 30px;
-        outline: none;
-      }
+    #browserActionMenu{
+      width: 275px;
+    }
+    .subActionMenu{
+      margin-top: 14px;
+      cursor: pointer;
+    }
+    body{
+      font-family: sans-serif;
+    }
+    img{
+      margin-left: 14%;
+    }
+   .titleLogoElement{
+      display: inline-block;
+    }
+    #LikeTabsLogo{
+      width: 25%;
+    }
+    #LikeTabsTitle{
+    float: right;
+    margin-right: 49px;
+    font-family: sans-serif;
+    font-style: italic;
+    font-variant: petite-caps;
+}
     </style>
+
   </head>
   <body>
-    <button id="changeColor"></button>
+  <div id="Wrapper">
+  <div id="titleLogo">
+    <img id="LikeTabsLogo" class= "titleLogoElement" src="./images/LikeTabsLogo.png">
+    <h1 id="LikeTabsTitle" class= "titleLogoElement">Like Tabs</h1>
+  </div>
+  <div id="browserActionMenu" onclick="ClickFun()">
+    <div class="subActionMenu">Close all</div>
+    <div  class="subActionMenu">Close other</div>
+    <hr>
+    <div  class="subActionMenu">Reload all</div>
+    <div  class="subActionMenu"> Reload other</div>
+    <hr>
+    <div  class="subActionMenu">Mute all</div>
+    <div  class="subActionMenu">Mute other</div>
+    <hr>
+    <div  class="subActionMenu">Unmute all</div>
+    <div  class="subActionMenu">Unmute other</div>
+  </div>
+</div> 
     <script src="popup.js"></script>
   </body>
 </html>

@@ -1,27 +1,28 @@
 {
   "name": "Like Tabs",
   "version": "1.0",
-  "description": "Build an Extension!",
+  "description": "Like Tabs!",
   "permissions": ["tabs","activeTab", "declarativeContent", "storage","contextMenus"],
   "options_page": "options.html",
   "background": {
     "scripts": ["background.js"],
     "persistent": false
   },
-  "page_action": {
-    "default_popup": "popup.html",
-    "default_icon": {
-      "16": "images/LikeTabs16.png",
-      "32": "images/LikeTabs32.png",
-      "48": "images/LikeTabs48.png",
-      "128": "images/LikeTabs128.png"
-    }
+  "browser_action": {
+    "default_icon": {                    
+      "16": "images/LikeTabsLogo.png",
+      "32": "images/LikeTabsLogo.png",
+      "48": "images/LikeTabsLogo.png"
+    },
+    "default_title": "Like Tabs",     
+    "default_popup": "popup.html"       
   },
+  
   "icons": {
-    "16": "images/LikeTabs16.png",
-    "32": "images/LikeTabs32.png",
-    "48": "images/LikeTabs48.png",
-    "128": "images/LikeTabs128.png"
+    "16": "images/LikeTabsLogo.png",
+    "32": "images/LikeTabsLogo.png",
+    "48": "images/LikeTabsLogo.png",
+    "128": "images/LikeTabsLogo.png"
   },
   "manifest_version": 2
 }
