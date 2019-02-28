@@ -82,7 +82,7 @@ function buildNestedContextMenuItems(){
   });
 }
 
-function ContextMenuLinkActions(tab, currentTab, contextMenuItemId){
+  function ContextMenuLinkActions(tab, currentTab, contextMenuItemId){
   chrome.windows.getAll({populate:true},function(windows){
     windows.forEach(function(window){
       window.tabs.forEach(function(tab){
