@@ -21,13 +21,9 @@ const UNMUTE_ALL_CONTEXTMENU_ITEM_ID = "UnmuteAll_Id";
 const UNMUTE_OTHER_CONTEXTMENU_ITEM_ID = "Unmute_Other_Id";
 
 console.log("I am clicked");
-// let changeColor = document.getElementById('changeColor');
 document.addEventListener('DOMContentLoaded', function() {
     var actionMenuContainer = document.getElementById('browserActionMenu');
     
-    // onClick's logic below:
-    // actionMenuContainer.addEventListener('click', actionMenuItems(elementId));
-
     actionMenuContainer.addEventListener('click', function() {
         var elementId = event.target.id;
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
@@ -98,22 +94,3 @@ function ContextMenuLinkActions(currentTab, contextMenuItemId){
       });
     });
   }
-// chrome.storage.sync.get('color', function(data) {
-//   changeColor.style.backgroundColor = data.color;
-//   changeColor.setAttribute('value', data.color);
-// });
-
-// changeColor.onclick = function(element) {
-//   let color = element.target.value;
-//   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-//     chrome.tabs.executeScript(
-//         tabs[0].id,
-//         {code: 'document.body.style.backgroundColor = "' + color + '";'});
-//   });
-// };
-
-    // chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    //       chrome.tabs.executeScript(
-    //           tabs[0].id,
-    //           {file: 'content.js'});
-    //     });
