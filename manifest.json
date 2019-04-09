@@ -3,10 +3,9 @@
   "version": "1.0",
   "description": "Like Tabs!",
   "permissions": ["tabs","activeTab", "declarativeContent", "storage","contextMenus"],
-  "options_page": "options.html",
   "background": {
-    "scripts": ["background.js"],
-    "persistent": false
+    "scripts": ["constants.js","global.js","background.js"],
+    "persistent": true
   },
   "browser_action": {
     "default_icon": {                    
