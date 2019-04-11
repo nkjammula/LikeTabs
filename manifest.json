@@ -1,6 +1,6 @@
 {
   "name": "Like Tabs",
-  "version": "1.0",
+  "version": "2.0",
   "description": "Like Tabs!",
   "permissions": ["tabs","activeTab", "declarativeContent", "storage","contextMenus"],
   "background": {
