@@ -1,8 +1,8 @@
 {
   "name": "Like Tabs",
-  "version": "2.0",
+  "version": "3.0",
   "description": "Like Tabs!",
-  "permissions": ["tabs","activeTab", "declarativeContent", "storage","contextMenus"],
+  "permissions": ["tabs","activeTab", "storage","contextMenus"],
   "background": {
     "scripts": ["constants.js","global.js","background.js"],
     "persistent": true
