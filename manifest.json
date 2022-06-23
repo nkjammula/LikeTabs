@@ -2,21 +2,21 @@
   "name": "Like Tabs",
   "version": "3.0",
   "description": "Like Tabs!",
-  "permissions": ["tabs","activeTab", "storage","contextMenus"],
+  "permissions": ["tabs", "activeTab", "contextMenus"],
   "background": {
-    "scripts": ["constants.js","global.js","background.js"],
+    "scripts": ["constants.js", "global.js", "background.js"],
     "persistent": true
   },
   "browser_action": {
-    "default_icon": {                    
+    "default_icon": {
       "16": "images/LikeTabsLogo.png",
       "32": "images/LikeTabsLogo.png",
       "48": "images/LikeTabsLogo.png"
     },
-    "default_title": "Like Tabs",     
-    "default_popup": "popup.html"       
+    "default_title": "Like Tabs",
+    "default_popup": "popup.html"
   },
-  
+
   "icons": {
     "16": "images/LikeTabsLogo.png",
     "32": "images/LikeTabsLogo.png",
